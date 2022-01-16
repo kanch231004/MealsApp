@@ -10,28 +10,7 @@ import MealsDetailsScreen from "../screens/MealsDetailsScreen";
 import FavoriteScreen from "../screens/FavoriteScreen";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs"
 
-const MealsNavigator = createStackNavigator(
-    {
-        Categories: { 
-            screen: CategoriesScreen,
-            navigationOptions: {
-                headerStyle: {
-                    backgroundColor: Colors.primaryColor
-                },
-                headerTintColor: 'white'
-            }
-        },
-        CategoryMeals: { 
-            screen: CategoryMealsScreen,
-            navigationOptions: {
-                headerStyle: {
-                    backgroundColor: Colors.primaryColor
-                },
-                headerTintColor: 'white'
-            }
-        },
-        MealDetail: MealsDetailsScreen
-    }, {
+const defaultStackNavOptions =  {
         defaultNavigationOptions:  {
             headerStyle: {
                 backgroundColor: Colors.primaryColor
@@ -39,7 +18,25 @@ const MealsNavigator = createStackNavigator(
             headerTintColor: 'white'
         }
     }
+
+const MealsNavigator = createStackNavigator(
+    {
+        Categories: { 
+            screen: CategoriesScreen,
+            navigationOptions: defaultStackNavOptions
+        },
+        CategoryMeals: { 
+            screen: CategoryMealsScreen,
+            navigationOptions: defaultStackNavOptions
+        },
+        MealDetail: MealsDetailsScreen
+    },
 );
+
+const FavNavigator = createStackNavigator({
+    Favorites: FavoriteScreen,
+    MealDetail: MealsDetailsScreen
+}, defaultStackNavOptions)
 
 const tabScreenConfig = {
      Meals: {
@@ -53,7 +50,7 @@ const tabScreenConfig = {
             }
         },
         Favorites: {
-            screen: FavoriteScreen,
+            screen: FavNavigator,
             navigationOptions: {
                 tabBarIcon: (tabInfo) => {
                     return <Ionicons name ='ios-star'
